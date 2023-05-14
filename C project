@@ -1,0 +1,227 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+#define MAX_PRODUCTS 100
+
+// Structure to hold the product details
+
+struct Product {
+
+    char name[50];
+
+    int code;
+
+    float price;
+
+    int quantity;
+
+    float sales;
+
+};
+
+// Function to add a product to the inventory
+
+void addProduct(struct Product products[], int *numProducts) {
+
+    struct Product newProduct;
+
+    
+
+    printf("Enter product name: ");
+
+    scanf("%s", newProduct.name);
+
+    
+
+    printf("Enter product code: ");
+
+    scanf("%d", &newProduct.code);
+
+    
+
+    printf("Enter product price: ");
+
+    scanf("%f", &newProduct.price);
+
+    
+
+    printf("Enter product quantity: ");
+
+    scanf("%d", &newProduct.quantity);
+
+    
+
+    newProduct.sales = 0.0;
+
+    
+
+    products[*numProducts] = newProduct;
+
+    *numProducts += 1;
+
+    
+
+    printf("Product added successfully!\n\n");
+
+}
+
+// Function to update a product's stock quantity
+
+void updateStock(struct Product products[], int numProducts) {
+
+    int code, quantity;
+
+    
+
+    printf("Enter product code: ");
+
+    scanf("%d", &code);
+
+    
+
+    for (int i = 0; i < numProducts; i++) {
+
+        if (products[i].code == code) {
+
+            printf("Enter new stock quantity: ");
+
+            scanf("%d", &quantity);
+
+            
+
+            products[i].quantity = quantity;
+
+            
+
+            printf("Stock quantity updated successfully!\n\n");
+
+            return;
+
+        }
+
+    }
+
+    
+
+    printf("Product not found!\n\n");
+
+}
+
+// Function to record a product sale
+
+void recordSale(struct Product products[], int numProducts) {
+
+    int code, quantity;
+
+    
+
+    printf("Enter product code: ");
+
+    scanf("%d", &code);
+
+    
+
+    for (int i = 0; i < numProducts; i++) {
+
+        if (products[i].code == code) {
+
+            printf("Enter quantity sold: ");
+
+            scanf("%d", &quantity);
+
+            
+
+            products[i].quantity -= quantity;
+
+            products[i].sales += (quantity * products[i].price);
+
+            
+
+            printf("Sale recorded successfully!\n\n");
+
+            return;
+
+        }
+
+    }
+
+    
+
+    printf("Product not found!\n\n");
+
+}
+
+// Function to generate a report of the inventory
+
+void generateReport(struct Product products[], int numProducts) {
+
+    printf("Product Name\tProduct Code\tProduct Price\tProduct Quantity\tProduct Sales\n");
+
+    
+
+    for (int i = 0; i < numProducts; i++) {
+
+        printf("%s\t\t%d\t\t%.2f\t\t%d\t\t%.2f\n", products[i].name, products[i].code, products[i].price, products[i].quantity, products[i].sales);
+
+    }
+
+}
+
+int main() {
+
+    struct Product products[MAX_PRODUCTS];
+
+    int numProducts = 0;
+
+    int choice;
+
+    
+
+    while (1) {
+
+        printf("1. Add a product\n");
+
+        printf("2. Update stock quantity\n");
+
+        printf("3. Record a sale\n");
+
+        printf("4. Generate a report\n");
+
+        printf("5. Exit\n");
+
+        
+
+        printf("Enter your choice: ");
+
+        scanf("%d", &choice);
+
+        
+
+        switch (choice) {
+
+            case 1:
+
+                addProduct(products, &numProducts);
+
+                break;
+
+            case 2:
+
+                updateStock(products, numProducts);
+
+                break;
+
+            case 3:
+
+                recordSale(products, numProducts);
+
+                break;
+
+            case 4:
+
+                generateReport(products, numProducts);
+
+                break;
